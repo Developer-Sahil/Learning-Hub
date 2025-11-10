@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pandas Guide - Learning Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/notes.css">
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">📚 Learning Hub</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="python-notes.html">Python</a>
+                <a href="numpy-notes.html">NumPy</a>
+                <!-- <a href="pandas-notes.html">Pandas</a> -->
+                <a href="sql-notes.html">SQL</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h3>📖 Contents</h3>
+            <ul>
+                <li><a href="#intro" class="active">Introduction</a></li>
+                <li><a href="#install">Installation</a></li>
+                <li><a href="#series">Series</a></li>
+                <li><a href="#dataframes">DataFrames</a></li>
+                <li><a href="#reading">Reading Data</a></li>
+                <li><a href="#viewing">Viewing Data</a></li>
+                <li><a href="#selection">Selection & Indexing</a></li>
+                <li><a href="#filtering">Filtering</a></li>
+                <li><a href="#operations">Operations</a></li>
+                <li><a href="#grouping">GroupBy</a></li>
+                <li><a href="#merging">Merging & Joining</a></li>
+                <li><a href="#missing">Missing Data</a></li>
+                <li><a href="#apply">Apply Functions</a></li>
+                <li><a href="#time-series">Time Series</a></li>
+                <li><a href="#export">Exporting Data</a></li>
+            </ul>
+        </aside>
+
+        <main class="content">
+            <div class="hero">
+                <h1>🐼 Pandas Handbook</h1>
+                <p>Master data manipulation and analysis with DataFrames, Series, and powerful data operations</p>
+            </div>
+
+            <section id="intro" class="card">
+                <h2>1. Introduction to Pandas</h2>
+                <p>Pandas is the most popular Python library for data manipulation and analysis. It provides powerful, flexible data structures designed for working with structured (tabular, multidimensional, potentially heterogeneous) and time series data.</p>
+                
+                <div class="highlight-box">
+                    <p><strong>Why Pandas?</strong> Fast and efficient DataFrame objects, tools for reading/writing data, data alignment and missing data handling, reshaping and pivoting</p>
+                </div>
+
+                <p>Pandas is built on top of NumPy and is a key library for:</p>
+                <ul>
+                    <li><strong>Data Cleaning</strong> - Handle missing data, duplicates, and inconsistencies</li>
+                    <li><strong>Data Transformation</strong> - Reshape, pivot, merge, and aggregate</li>
+                    <li><strong>Data Analysis</strong> - Statistical analysis and exploration</li>
+                    <li><strong>Time Series</strong> - Work with dates, times, and time-indexed data</li>
+                </ul>
+            </section>
+
+            <section id="install" class="card">
+                <h2>2. Installation and Import</h2>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Bash</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-bash"># Install with pip
+$ pip install pandas
+
+# Or with Anaconda
+$ conda install pandas</code></pre>
+                </div>
+
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python">import pandas as pd
+import numpy as np
+
+# Check version
+print(pd.__version__)  # 1.3.0 or newer</code></pre>
+                </div>
+            </section>
+
+            <section id="series" class="card">
+                <h2>3. Series</h2>
+                <p>A Series is a one-dimensional labeled array capable of holding any data type.</p>
+
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Create Series from list
+s = pd.Series([1, 3, 5, 7, 9])
+print(s)
+# 0    1
+# 1    3
+# 2    5
+# 3    7
+# 4    9
+
+# Series with custom index
+s = pd.Series([1, 3, 5, 7, 9], index=['a', 'b', 'c', 'd', 'e'])
+print(s)
+# a    1
+# b    3
+# c    5
+# d    7
+# e    9
+
+# Create from dictionary
+data = {'a': 1, 'b': 2, 'c': 3}
+s = pd.Series(data)
+print(s)
+
+# Accessing elements
+print(s['a'])     # 1
+print(s[0])       # 1
+print(s[['a', 'c']])  # Multiple elements
+
+# Series operations
+print(s + 10)     # Add 10 to all elements
+print(s * 2)      # Multiply all by 2
+print(s[s > 1])   # Filter values > 1</code></pre>
+                </div>
+            </section>
+
+            <section id="dataframes" class="card">
+                <h2>4. DataFrames</h2>
+                <p>A DataFrame is a 2-dimensional labeled data structure with columns of potentially different types.</p>
+
+                <h3>Creating DataFrames</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># From dictionary
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie', 'David'],
+    'Age': [25, 30, 35, 40],
+    'City': ['New York', 'London', 'Paris', 'Tokyo']
+}
+df = pd.DataFrame(data)
+print(df)
+#       Name  Age      City
+# 0    Alice   25  New York
+# 1      Bob   30    London
+# 2  Charlie   35     Paris
+# 3    David   40     Tokyo
+
+# From list of lists
+data = [
+    ['Alice', 25, 'New York'],
+    ['Bob', 30, 'London'],
+    ['Charlie', 35, 'Paris']
+]
+df = pd.DataFrame(data, columns=['Name', 'Age', 'City'])
+
+# From NumPy array
+arr = np.array([[1, 2, 3], [4, 5, 6]])
+df = pd.DataFrame(arr, columns=['A', 'B', 'C'])
+
+# Basic info
+print(df.shape)      # (4, 3) - rows, columns
+print(df.columns)    # Column names
+print(df.index)      # Row indices
+print(df.dtypes)     # Data types
+print(df.info())     # Summary info</code></pre>
+                </div>
+            </section>
+
+            <section id="reading" class="card">
+                <h2>5. Reading Data</h2>
+                <p>Pandas can read data from various file formats.</p>
+
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Read CSV
+df = pd.read_csv('data.csv')
+
+# Read with specific options
+df = pd.read_csv('data.csv', 
+                 sep=',',           # Delimiter
+                 header=0,          # Row number to use as column names
+                 index_col=0,       # Column to use as row labels
+                 na_values=['NA', 'missing'])  # Values to treat as NaN
+
+# Read Excel
+df = pd.read_excel('data.xlsx', sheet_name='Sheet1')
+
+# Read JSON
+df = pd.read_json('data.json')
+
+# Read from SQL database
+import sqlite3
+conn = sqlite3.connect('database.db')
+df = pd.read_sql_query("SELECT * FROM table_name", conn)
+
+# Read from URL
+url = 'https://example.com/data.csv'
+df = pd.read_csv(url)</code></pre>
+                </div>
+            </section>
+
+            <section id="viewing" class="card">
+                <h2>6. Viewing and Inspecting Data</h2>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># View first/last rows
+print(df.head())      # First 5 rows
+print(df.head(10))    # First 10 rows
+print(df.tail())      # Last 5 rows
+
+# Quick statistics
+print(df.describe())  # Summary statistics
+print(df.info())      # DataFrame info
+
+# Shape and size
+print(df.shape)       # (rows, columns)
+print(df.size)        # Total elements
+print(len(df))        # Number of rows
+
+# Check for missing values
+print(df.isnull().sum())      # Count nulls per column
+print(df.notnull().sum())     # Count non-nulls
+
+# Unique values
+print(df['City'].unique())     # Unique values in column
+print(df['City'].nunique())    # Count unique values
+print(df['City'].value_counts())  # Frequency of each value
+
+# Column information
+print(df.columns.tolist())     # List of column names
+print(df.dtypes)               # Data types of columns</code></pre>
+                </div>
+            </section>
+
+            <section id="selection" class="card">
+                <h2>7. Selection and Indexing</h2>
+                
+                <h3>Selecting Columns</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Single column (returns Series)
+ages = df['Age']
+print(ages)
+
+# Multiple columns (returns DataFrame)
+subset = df[['Name', 'Age']]
+print(subset)
+
+# Add new column
+df['Salary'] = [50000, 60000, 70000, 80000]
+
+# Delete column
+df = df.drop('City', axis=1)  # axis=1 for columns
+# or
+del df['City']</code></pre>
+                </div>
+
+                <h3>Selecting Rows</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Select by position with iloc
+print(df.iloc[0])         # First row
+print(df.iloc[0:3])       # First 3 rows
+print(df.iloc[0:3, 0:2])  # First 3 rows, first 2 columns
+
+# Select by label with loc
+df = df.set_index('Name')
+print(df.loc['Alice'])            # Row with index 'Alice'
+print(df.loc['Alice':'Charlie'])  # Rows from Alice to Charlie
+print(df.loc['Alice', 'Age'])     # Specific cell
+
+# Boolean indexing
+print(df.iloc[[0, 2]])    # Rows 0 and 2</code></pre>
+                </div>
+            </section>
+
+            <section id="filtering" class="card">
+                <h2>8. Filtering Data</h2>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Single condition
+df_filtered = df[df['Age'] > 30]
+print(df_filtered)
+
+# Multiple conditions (AND)
+df_filtered = df[(df['Age'] > 25) & (df['Salary'] > 55000)]
+
+# Multiple conditions (OR)
+df_filtered = df[(df['Age'] < 30) | (df['City'] == 'Tokyo')]
+
+# Using isin()
+cities = ['New York', 'London']
+df_filtered = df[df['City'].isin(cities)]
+
+# Using query() method
+df_filtered = df.query('Age > 30 and Salary < 75000')
+
+# Filter by string methods
+df_filtered = df[df['Name'].str.startswith('A')]
+df_filtered = df[df['Name'].str.contains('li')]
+
+# Not null filtering
+df_filtered = df[df['Age'].notnull()]</code></pre>
+                </div>
+            </section>
+
+            <section id="operations" class="card">
+                <h2>9. Data Operations</h2>
+                
+                <h3>Sorting</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Sort by column
+df_sorted = df.sort_values('Age')
+df_sorted = df.sort_values('Age', ascending=False)
+
+# Sort by multiple columns
+df_sorted = df.sort_values(['City', 'Age'])
+
+# Sort index
+df_sorted = df.sort_index()</code></pre>
+                </div>
+
+                <h3>Adding and Modifying Columns</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Add new column from calculation
+df['Age_in_10_years'] = df['Age'] + 10
+
+# Add column from condition
+df['Senior'] = df['Age'] > 35
+
+# Modify existing column
+df['Age'] = df['Age'] + 1
+
+# Rename columns
+df = df.rename(columns={'Age': 'Years', 'City': 'Location'})
+
+# Drop duplicates
+df = df.drop_duplicates()
+df = df.drop_duplicates(subset=['Name'])  # Based on specific column</code></pre>
+                </div>
+
+                <h3>String Operations</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Convert case
+df['Name'] = df['Name'].str.upper()
+df['Name'] = df['Name'].str.lower()
+df['Name'] = df['Name'].str.title()
+
+# String methods
+df['Name'].str.len()              # Length of strings
+df['Name'].str.strip()            # Remove whitespace
+df['Name'].str.replace('A', 'a')  # Replace characters
+df['Name'].str.split(' ')         # Split strings
+
+# Extract patterns
+df['City'].str.extract(r'([A-Z][a-z]+)')  # Regex extraction</code></pre>
+                </div>
+            </section>
+
+            <section id="grouping" class="card">
+                <h2>10. GroupBy Operations</h2>
+                <p>Group data and perform aggregate operations.</p>
+
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Basic groupby
+grouped = df.groupby('City')
+
+# Aggregate functions
+print(df.groupby('City')['Age'].mean())
+print(df.groupby('City')['Salary'].sum())
+print(df.groupby('City').size())  # Count per group
+
+# Multiple aggregations
+print(df.groupby('City').agg({
+    'Age': ['mean', 'min', 'max'],
+    'Salary': ['sum', 'mean']
+}))
+
+# Group by multiple columns
+df.groupby(['City', 'Department']).mean()
+
+# Apply custom function to groups
+def age_range(x):
+    return x.max() - x.min()
+
+df.groupby('City')['Age'].apply(age_range)
+
+# Iterate through groups
+for name, group in df.groupby('City'):
+    print(f"\n{name}:")
+    print(group)</code></pre>
+                </div>
+            </section>
+
+            <section id="merging" class="card">
+                <h2>11. Merging and Joining</h2>
+                
+                <h3>Concatenation</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Vertical concatenation (stack rows)
+df1 = pd.DataFrame({'A': [1, 2], 'B': [3, 4]})
+df2 = pd.DataFrame({'A': [5, 6], 'B': [7, 8]})
+result = pd.concat([df1, df2], ignore_index=True)
+
+# Horizontal concatenation (stack columns)
+result = pd.concat([df1, df2], axis=1)
+
+# Concatenate with keys
+result = pd.concat([df1, df2], keys=['first', 'second'])</code></pre>
+                </div>
+
+                <h3>Merging (SQL-style joins)</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python">df1 = pd.DataFrame({
+    'key': ['A', 'B', 'C'],
+    'value1': [1, 2, 3]
+})
+
+df2 = pd.DataFrame({
+    'key': ['A', 'B', 'D'],
+    'value2': [4, 5, 6]
+})
+
+# Inner join (default)
+result = pd.merge(df1, df2, on='key')
+# Only keeps rows where key exists in both
+
+# Left join
+result = pd.merge(df1, df2, on='key', how='left')
+# Keeps all rows from df1
+
+# Right join
+result = pd.merge(df1, df2, on='key', how='right')
+# Keeps all rows from df2
+
+# Outer join
+result = pd.merge(df1, df2, on='key', how='outer')
+# Keeps all rows from both
+
+# Merge on multiple columns
+result = pd.merge(df1, df2, on=['key1', 'key2'])
+
+# Merge with different column names
+result = pd.merge(df1, df2, left_on='key1', right_on='key2')</code></pre>
+                </div>
+            </section>
+
+            <section id="missing" class="card">
+                <h2>12. Handling Missing Data</h2>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Check for missing values
+print(df.isnull())           # Boolean DataFrame
+print(df.isnull().sum())     # Count per column
+print(df.isnull().any())     # Any nulls per column
+
+# Drop missing values
+df_clean = df.dropna()                 # Drop rows with any null
+df_clean = df.dropna(axis=1)           # Drop columns with any null
+df_clean = df.dropna(how='all')        # Drop only if all values are null
+df_clean = df.dropna(subset=['Age'])   # Drop based on specific column
+
+# Fill missing values
+df_filled = df.fillna(0)                      # Fill with 0
+df_filled = df.fillna(df.mean())              # Fill with mean
+df_filled = df.fillna(method='ffill')         # Forward fill
+df_filled = df.fillna(method='bfill')         # Backward fill
+
+# Fill specific column
+df['Age'] = df['Age'].fillna(df['Age'].mean())
+
+# Interpolate missing values
+df['Age'] = df['Age'].interpolate()
+
+# Replace specific values
+df = df.replace(0, np.nan)                    # Replace 0 with NaN
+df = df.replace([0, -1], np.nan)              # Replace multiple values</code></pre>
+                </div>
+            </section>
+
+            <section id="apply" class="card">
+                <h2>13. Apply Functions</h2>
+                <p>Apply custom functions to DataFrames and Series.</p>
+
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Apply to Series
+def double(x):
+    return x * 2
+
+df['Age_doubled'] = df['Age'].apply(double)
+
+# Lambda function
+df['Age_squared'] = df['Age'].apply(lambda x: x ** 2)
+
+# Apply to DataFrame rows (axis=1)
+def calculate_bonus(row):
+    if row['Age'] > 35:
+        return row['Salary'] * 0.1
+    else:
+        return row['Salary'] * 0.05
+
+df['Bonus'] = df.apply(calculate_bonus, axis=1)
+
+# Apply to DataFrame columns (axis=0)
+df_normalized = df[['Age', 'Salary']].apply(lambda x: (x - x.min()) / (x.max() - x.min()))
+
+# Map values (for Series)
+age_category = {
+    25: 'Young',
+    30: 'Mid',
+    35: 'Senior',
+    40: 'Senior'
+}
+df['Category'] = df['Age'].map(age_category)
+
+# Replace with mapping
+df['City'] = df['City'].replace({
+    'New York': 'NY',
+    'Los Angeles': 'LA'
+})
+
+# applymap (element-wise on entire DataFrame)
+df_rounded = df[['Age', 'Salary']].applymap(lambda x: round(x, 2))</code></pre>
+                </div>
+            </section>
+
+            <section id="time-series" class="card">
+                <h2>14. Time Series</h2>
+                <p>Working with dates, times, and time-indexed data.</p>
+
+                <h3>Creating Date Ranges</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Date range
+dates = pd.date_range('2023-01-01', periods=10, freq='D')
+print(dates)
+
+# Different frequencies
+dates = pd.date_range('2023-01-01', periods=12, freq='M')   # Month
+dates = pd.date_range('2023-01-01', periods=52, freq='W')   # Week
+dates = pd.date_range('2023-01-01', periods=24, freq='H')   # Hour
+
+# Create DataFrame with date index
+df = pd.DataFrame({
+    'value': np.random.randn(10)
+}, index=dates)</code></pre>
+                </div>
+
+                <h3>Date Operations</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Convert string to datetime
+df['date'] = pd.to_datetime(df['date_string'])
+
+# Parse with specific format
+df['date'] = pd.to_datetime(df['date_string'], format='%Y-%m-%d')
+
+# Extract date components
+df['year'] = df['date'].dt.year
+df['month'] = df['date'].dt.month
+df['day'] = df['date'].dt.day
+df['day_name'] = df['date'].dt.day_name()
+df['week'] = df['date'].dt.isocalendar().week
+
+# Filter by date
+df_filtered = df[df['date'] > '2023-01-01']
+df_filtered = df[(df['date'] >= '2023-01-01') & (df['date'] <= '2023-12-31')]
+
+# Set date as index
+df = df.set_index('date')
+
+# Resample time series data
+df_monthly = df.resample('M').mean()      # Monthly average
+df_weekly = df.resample('W').sum()        # Weekly sum
+
+# Rolling window calculations
+df['rolling_mean'] = df['value'].rolling(window=7).mean()
+df['rolling_sum'] = df['value'].rolling(window=7).sum()
+
+# Shift data (for lag features)
+df['previous_value'] = df['value'].shift(1)
+df['next_value'] = df['value'].shift(-1)</code></pre>
+                </div>
+            </section>
+
+            <section id="export" class="card">
+                <h2>15. Exporting Data</h2>
+                <p>Save DataFrames to various file formats.</p>
+
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Export to CSV
+df.to_csv('output.csv', index=False)
+df.to_csv('output.csv', index=False, sep=';')  # Custom separator
+
+# Export to Excel
+df.to_excel('output.xlsx', sheet_name='Data', index=False)
+
+# Multiple sheets
+with pd.ExcelWriter('output.xlsx') as writer:
+    df1.to_excel(writer, sheet_name='Sheet1', index=False)
+    df2.to_excel(writer, sheet_name='Sheet2', index=False)
+
+# Export to JSON
+df.to_json('output.json')
+df.to_json('output.json', orient='records')  # List of records
+
+# Export to SQL
+from sqlalchemy import create_engine
+engine = create_engine('sqlite:///database.db')
+df.to_sql('table_name', engine, if_exists='replace', index=False)
+# if_exists options: 'fail', 'replace', 'append'
+
+# Export to HTML
+df.to_html('output.html')
+
+# Export to pickle (preserves data types)
+df.to_pickle('output.pkl')
+
+# Read pickle
+df = pd.read_pickle('output.pkl')</code></pre>
+                </div>
+
+                <h3>Advanced Export Options</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Export specific columns
+df[['Name', 'Age']].to_csv('subset.csv', index=False)
+
+# Export with compression
+df.to_csv('output.csv.gz', compression='gzip', index=False)
+
+# Export with encoding
+df.to_csv('output.csv', encoding='utf-8', index=False)
+
+# Export to clipboard (for quick paste)
+df.to_clipboard(index=False)</code></pre>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2>Bonus: Common Pandas Patterns</h2>
+                
+                <h3>Chaining Operations</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Method chaining for clean code
+result = (df
+    .query('Age > 25')
+    .groupby('City')['Salary']
+    .mean()
+    .sort_values(ascending=False)
+    .head(5)
+)
+
+# Pipeline approach
+result = (df
+    .assign(Bonus=lambda x: x['Salary'] * 0.1)
+    .query('Bonus > 5000')
+    .sort_values('Bonus', ascending=False)
+)</code></pre>
+                </div>
+
+                <h3>Pivot Tables</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Create pivot table
+pivot = df.pivot_table(
+    values='Salary',
+    index='City',
+    columns='Department',
+    aggfunc='mean'
+)
+
+# Multiple aggregations
+pivot = df.pivot_table(
+    values='Salary',
+    index='City',
+    columns='Department',
+    aggfunc=['mean', 'sum', 'count']
+)
+
+# Melt (unpivot)
+melted = df.melt(
+    id_vars=['Name'],
+    value_vars=['Age', 'Salary'],
+    var_name='Metric',
+    value_name='Value'
+)</code></pre>
+                </div>
+
+                <h3>Cross Tabulation</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Frequency table
+crosstab = pd.crosstab(df['City'], df['Department'])
+
+# With percentages
+crosstab = pd.crosstab(
+    df['City'], 
+    df['Department'],
+    normalize='index'  # Row percentages
+)
+
+# With margins (totals)
+crosstab = pd.crosstab(
+    df['City'], 
+    df['Department'],
+    margins=True
+)</code></pre>
+                </div>
+
+                <h3>Window Functions</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Ranking
+df['rank'] = df['Salary'].rank(ascending=False)
+df['rank'] = df.groupby('City')['Salary'].rank(ascending=False)
+
+# Cumulative operations
+df['cumsum'] = df['Salary'].cumsum()
+df['cummax'] = df['Salary'].cummax()
+
+# Percent change
+df['pct_change'] = df['Salary'].pct_change()
+
+# Expanding window (cumulative statistics)
+df['expanding_mean'] = df['Salary'].expanding().mean()</code></pre>
+                </div>
+            </section>
+
+            <div class="card" style="text-align: center; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));">
+                <h2>🎉 Congratulations!</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 30px;">You've mastered Pandas fundamentals! Ready to query databases with SQL?</p>
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                    <a href="sql-notes.html" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 15px 30px; border-radius: 12px; font-weight: 600; transition: transform 0.3s; text-decoration: none;">Next: SQL →</a>
+                    <a href="numpy-notes.html" style="background: rgba(102, 126, 234, 0.2); color: #667eea; padding: 15px 30px; border-radius: 12px; font-weight: 600; transition: transform 0.3s; text-decoration: none;">← Back to NumPy</a>
+                    <a href="index.html" style="background: rgba(102, 126, 234, 0.2); color: #667eea; padding: 15px 30px; border-radius: 12px; font-weight: 600; transition: transform 0.3s; text-decoration: none;">🏠 Home</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>📚 Learning Hub</h3>
+                <p>A comprehensive platform for mastering data science fundamentals. Built with passion for learners everywhere.</p>
+                <div class="social-links">
+                    <a href="https://github.com/Developer-Sahil/" title="GitHub">💻</a>
+                    <a href="https://www.linkedin.com/in/sahil-sharma-921969239/" title="LinkedIn">💼</a>
+                    <!-- <a href="#" title="Twitter">🐦</a> -->
+                    <a href="sahilsharmamrp@gmail.com" title="Email">📧</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>🎓 Topics</h3>
+                <ul>
+                    <li><a href="python-notes.html">Python Basics</a></li>
+                    <li><a href="numpy-notes.html">NumPy</a></li>
+                    <li><a href="pandas-notes.html">Pandas</a></li>
+                    <li><a href="sql-notes.html">SQL</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>🔗 Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Me</a></li>
+                    <li><a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">Back to Top</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>💡 Resources</h3>
+                <ul>
+                    <li><a href="https://docs.python.org/" target="_blank">Python Docs</a></li>
+                    <li><a href="https://numpy.org/doc/" target="_blank">NumPy Docs</a></li>
+                    <li><a href="https://pandas.pydata.org/docs/" target="_blank">Pandas Docs</a></li>
+                    <li><a href="https://www.w3schools.com/sql/" target="_blank">SQL Tutorial</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Data Science Learning Hub. Built by Sahil Sharma for learners everywhere.</p>
+            <p>Open source educational project • <a href="about.html">Learn more about the creator</a></p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    
+    <script src="js/common.js"></script>
+    <script src="js/notes.js"></script>
+</body>
+</html>

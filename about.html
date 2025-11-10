@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me - Learning Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/common.css">
+    <style>
+        .about-container {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 30px;
+        }
+
+        .about-hero {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 60px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            margin: 0 auto 30px;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .about-hero h1 {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .about-hero .subtitle {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .about-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-card h2 {
+            font-size: 2rem;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .about-card p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .skill-item {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .skill-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .about-hero {
+                padding: 40px 30px;
+            }
+
+            .about-hero h1 {
+                font-size: 2rem;
+            }
+
+            .about-hero .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .about-card {
+                padding: 25px;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">📚 Learning Hub</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="python-notes.html">Python</a>
+                <a href="numpy-notes.html">NumPy</a>
+                <a href="pandas-notes.html">Pandas</a>
+                <a href="sql-notes.html">SQL</a>
+                <!-- <a href="about.html">About</a> -->
+            </div>
+        </div>
+    </nav>
+    
+    <div class="about-container">
+        <div class="about-hero">
+            <div class="profile-img">👨‍💻</div>
+            <h1>Sahil Sharma</h1>
+            <p class="subtitle">Data Analyst | Developer | Student</p>
+            <div class="contact-buttons">
+                <a href="https://github.com/Developer-Sahil/" class="contact-btn">
+                    <span>💻</span> GitHub
+                </a>
+                <a href="https://www.linkedin.com/in/sahil-sharma-921969239/" class="contact-btn">
+                    <span>💼</span> LinkedIn
+                </a>
+                <a href="sahilsharmamrp@gmail.com" class="contact-btn">
+                    <span>📧</span> Email
+                </a>
+            </div>
+        </div>
+
+        <div class="about-card">
+            <h2>👋 About Me</h2>
+            <p>Hello! I'm a passionate data scientist and educator dedicated to making data science education accessible to everyone. This learning hub is my contribution to the community – a comprehensive, free resource for anyone looking to master the fundamentals of data science.</p>
+            <p>I believe that quality education should be available to all, and I've created these interactive guides to help learners of all levels understand complex concepts through clear explanations and practical examples.</p>
+        </div>
+
+        <div class="about-card">
+            <h2>🎯 Mission</h2>
+            <p>My mission is to democratize data science education by creating high-quality, interactive learning resources that are:</p>
+            <ul style="padding-left: 30px; color: #555; line-height: 1.8;">
+                <li>Comprehensive yet beginner-friendly</li>
+                <li>Hands-on with practical examples</li>
+                <li>Completely free and open-source</li>
+                <li>Regularly updated with latest best practices</li>
+            </ul>
+        </div>
+
+        <div class="about-card">
+            <h2>💼 Skills & Expertise</h2>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <div class="skill-icon">🐍</div>
+                    <div class="skill-name">Python</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon">📊</div>
+                    <div class="skill-name">Data Analysis</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon">🤖</div>
+                    <div class="skill-name">Machine Learning</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon">🗄️</div>
+                    <div class="skill-name">SQL</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon">📈</div>
+                    <div class="skill-name">Visualization</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-icon">☁️</div>
+                    <div class="skill-name">Cloud Computing</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-card">
+            <h2>📚 What You'll Find Here</h2>
+            <p>This learning hub covers the essential topics for anyone starting their data science journey:</p>
+            <ul style="padding-left: 30px; color: #555; line-height: 1.8;">
+                <li><strong>Python Basics:</strong> Master the fundamentals of programming</li>
+                <li><strong>NumPy:</strong> Learn numerical computing and array operations</li>
+                <li><strong>Pandas:</strong> Excel at data manipulation and analysis</li>
+                <li><strong>SQL:</strong> Query databases like a pro</li>
+            </ul>
+            <p style="margin-top: 20px;">Each guide is designed to be self-contained yet interconnected, allowing you to learn at your own pace and in your preferred order.</p>
+        </div>
+
+        <div class="about-card">
+            <h2>🤝 Get In Touch</h2>
+            <p>I'd love to hear from you! Whether you have questions, suggestions for new topics, or just want to connect, feel free to reach out through any of the platforms above.</p>
+            <p>If you find these resources helpful, consider sharing them with others who might benefit. Learning is better together! 🚀</p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>📚 Learning Hub</h3>
+                <p>A comprehensive platform for mastering data science fundamentals. Built with passion for learners everywhere.</p>
+                <div class="social-links">
+                    <a href="https://github.com/Developer-Sahil/" title="GitHub">💻</a>
+                    <a href="https://www.linkedin.com/in/sahil-sharma-921969239/" title="LinkedIn">💼</a>
+                    <!-- <a href="#" title="Twitter">🐦</a> -->
+                    <a href="sahilsharmamrp@gmail.com" title="Email">📧</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>🎓 Topics</h3>
+                <ul>
+                    <li><a href="python-notes.html">Python Basics</a></li>
+                    <li><a href="numpy-notes.html">NumPy</a></li>
+                    <li><a href="pandas-notes.html">Pandas</a></li>
+                    <li><a href="sql-notes.html">SQL</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>🔗 Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Me</a></li>
+                    <li><a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">Back to Top</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>💡 Resources</h3>
+                <ul>
+                    <li><a href="https://docs.python.org/" target="_blank">Python Docs</a></li>
+                    <li><a href="https://numpy.org/doc/" target="_blank">NumPy Docs</a></li>
+                    <li><a href="https://pandas.pydata.org/docs/" target="_blank">Pandas Docs</a></li>
+                    <li><a href="https://www.w3schools.com/sql/" target="_blank">SQL Tutorial</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Data Science Learning Hub. Built by Sahil Sharma for learners everywhere.</p>
+            <p>Open source educational project • <a href="about.html">Learn more about the creator</a></p>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+</body>
+</html>

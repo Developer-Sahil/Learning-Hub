@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Basics - Learning Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/notes.css">
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">📚 Learning Hub</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <!-- <a href="python-notes.html">Python</a> -->
+                <a href="numpy-notes.html">NumPy</a>
+                <a href="pandas-notes.html">Pandas</a>
+                <a href="sql-notes.html">SQL</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h3>📖 Contents</h3>
+            <ul>
+                <li><a href="#intro" class="active">Introduction</a></li>
+                <li><a href="#variables">Variables & Types</a></li>
+                <li><a href="#operators">Operators</a></li>
+                <li><a href="#strings">Strings</a></li>
+                <li><a href="#lists">Lists</a></li>
+                <li><a href="#tuples">Tuples</a></li>
+                <li><a href="#dictionaries">Dictionaries</a></li>
+                <li><a href="#sets">Sets</a></li>
+                <li><a href="#control">Control Flow</a></li>
+                <li><a href="#functions">Functions</a></li>
+                <li><a href="#lambda">Lambda Functions</a></li>
+                <li><a href="#comprehensions">Comprehensions</a></li>
+                <li><a href="#oop">OOP Basics</a></li>
+                <li><a href="#modules">Modules</a></li>
+                <li><a href="#files">File Handling</a></li>
+            </ul>
+        </aside>
+
+        <main class="content">
+            <div class="hero">
+                <h1>🐍 Python Basics</h1>
+                <p>Master the fundamentals of Python programming from variables to object-oriented programming</p>
+            </div>
+
+            <section id="intro" class="card">
+                <h2>1. Introduction to Python</h2>
+                <p>Python is a high-level, interpreted programming language known for its simplicity and readability. It's widely used in web development, data science, artificial intelligence, automation, and more.</p>
+                
+                <div class="highlight-box">
+                    <p><strong>Why Python?</strong> Easy to learn, powerful libraries, huge community, versatile applications</p>
+                </div>
+
+                <h3>Your First Program</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python">print("Hello, World!")
+print("Welcome to Python!")
+
+# This is a comment
+# Output: Hello, World!
+#         Welcome to Python!</code></pre>
+                </div>
+            </section>
+
+            <section id="variables" class="card">
+                <h2>2. Variables and Data Types</h2>
+                <p>Variables store data values. Python has dynamic typing - you don't need to declare the type explicitly.</p>
+
+                <h3>Basic Data Types</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Numbers
+age = 25              # int
+price = 19.99         # float
+complex_num = 3 + 4j  # complex
+
+# Strings
+name = "Alice"
+message = 'Hello World'
+multiline = """This is
+a multiline string"""
+
+# Boolean
+is_active = True
+has_discount = False
+
+# None (null value)
+result = None
+
+# Check type
+print(type(age))      # <class 'int'>
+print(type(price))    # <class 'float'>
+print(type(name))     # <class 'str'></code></pre>
+                </div>
+
+                <h3>Type Conversion</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Convert between types
+x = "100"
+y = int(x)        # String to int
+z = float(x)      # String to float
+w = str(50)       # Number to string
+
+print(y + 50)     # 150
+print(z + 0.5)    # 100.5
+print(w + "0")    # "500"</code></pre>
+                </div>
+            </section>
+
+            <section id="operators" class="card">
+                <h2>3. Operators</h2>
+                
+                <h3>Arithmetic Operators</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python">a = 10
+b = 3
+
+print(a + b)   # 13  Addition
+print(a - b)   # 7   Subtraction
+print(a * b)   # 30  Multiplication
+print(a / b)   # 3.333... Division (float)
+print(a // b)  # 3   Floor division (int)
+print(a % b)   # 1   Modulus (remainder)
+print(a ** b)  # 1000 Exponentiation</code></pre>
+                </div>
+
+                <h3>Comparison Operators</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python">x = 5
+y = 10
+
+print(x == y)  # False  Equal to
+print(x != y)  # True   Not equal to
+print(x < y)   # True   Less than
+print(x > y)   # False  Greater than
+print(x <= y)  # True   Less than or equal
+print(x >= y)  # False  Greater than or equal</code></pre>
+                </div>
+
+                <h3>Logical Operators</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python">a = True
+b = False
+
+print(a and b)  # False  Both must be True
+print(a or b)   # True   At least one True
+print(not a)    # False  Negation</code></pre>
+                </div>
+            </section>
+
+            <section id="strings" class="card">
+                <h2>4. Strings</h2>
+                <p>Strings are sequences of characters. Python provides powerful string manipulation methods.</p>
+
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># String operations
+text = "Hello, Python!"
+
+# Indexing and slicing
+print(text[0])       # 'H'
+print(text[-1])      # '!'
+print(text[0:5])     # 'Hello'
+print(text[7:])      # 'Python!'
+
+# String methods
+print(text.upper())           # 'HELLO, PYTHON!'
+print(text.lower())           # 'hello, python!'
+print(text.replace("Python", "World"))  # 'Hello, World!'
+print(text.split(","))        # ['Hello', ' Python!']
+print(len(text))              # 14
+
+# String formatting
+name = "Alice"
+age = 25
+print(f"My name is {name} and I'm {age} years old")
+print("My name is {} and I'm {} years old".format(name, age))</code></pre>
+                </div>
+            </section>
+
+            <section id="lists" class="card">
+                <h2>5. Lists</h2>
+                <p>Lists are ordered, mutable collections that can contain items of different types.</p>
+
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Create lists
+fruits = ["apple", "banana", "cherry"]
+numbers = [1, 2, 3, 4, 5]
+mixed = [1, "hello", 3.14, True]
+
+# Accessing elements
+print(fruits[0])      # 'apple'
+print(fruits[-1])     # 'cherry'
+
+# Slicing
+print(numbers[1:4])   # [2, 3, 4]
+print(numbers[:3])    # [1, 2, 3]
+print(numbers[2:])    # [3, 4, 5]
+
+# List methods
+fruits.append("orange")      # Add to end
+fruits.insert(1, "mango")    # Insert at index
+fruits.remove("banana")      # Remove by value
+fruits.pop()                 # Remove last item
+fruits.sort()                # Sort in place
+print(len(fruits))           # Length
+
+# List operations
+list1 = [1, 2, 3]
+list2 = [4, 5, 6]
+combined = list1 + list2     # [1, 2, 3, 4, 5, 6]
+repeated = list1 * 2         # [1, 2, 3, 1, 2, 3]
+
+# Check membership
+print("apple" in fruits)     # True
+print("grape" not in fruits) # True</code></pre>
+                </div>
+            </section>
+
+            <section id="tuples" class="card">
+                <h2>6. Tuples</h2>
+                <p>Tuples are ordered, immutable collections. Once created, you cannot change their contents.</p>
+
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Create tuples
+coordinates = (10, 20)
+colors = ("red", "green", "blue")
+single_item = (42,)  # Note the comma for single item
+
+# Accessing elements
+print(coordinates[0])  # 10
+print(colors[-1])      # 'blue'
+
+# Tuple unpacking
+x, y = coordinates
+print(x)  # 10
+print(y)  # 20
+
+# Tuple methods
+numbers = (1, 2, 3, 2, 4, 2)
+print(numbers.count(2))  # 3
+print(numbers.index(3))  # 2
+
+# Why use tuples?
+# - Faster than lists
+# - Protect data from modification
+# - Can be used as dictionary keys</code></pre>
+                </div>
+            </section>
+
+            <section id="dictionaries" class="card">
+                <h2>7. Dictionaries</h2>
+                <p>Dictionaries store data as key-value pairs. Keys must be unique and immutable.</p>
+
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Create dictionaries
+person = {
+    "name": "Alice",
+    "age": 25,
+    "city": "New York"
+}
+
+# Accessing values
+print(person["name"])        # 'Alice'
+print(person.get("age"))     # 25
+print(person.get("email", "Not found"))  # 'Not found'
+
+# Modifying dictionaries
+person["age"] = 26           # Update value
+person["email"] = "alice@example.com"  # Add new key
+del person["city"]           # Remove key
+person.pop("email")          # Remove and return value
+
+# Dictionary methods
+print(person.keys())         # dict_keys(['name', 'age'])
+print(person.values())       # dict_values(['Alice', 26])
+print(person.items())        # dict_items([('name', 'Alice'), ('age', 26)])
+
+# Check membership
+print("name" in person)      # True
+
+# Loop through dictionary
+for key, value in person.items():
+    print(f"{key}: {value}")</code></pre>
+                </div>
+            </section>
+
+            <section id="sets" class="card">
+                <h2>8. Sets</h2>
+                <p>Sets are unordered collections of unique elements. Great for removing duplicates and set operations.</p>
+
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Create sets
+fruits = {"apple", "banana", "cherry"}
+numbers = set([1, 2, 3, 2, 1])  # {1, 2, 3} - duplicates removed
+
+# Set operations
+fruits.add("orange")         # Add element
+fruits.remove("banana")      # Remove (raises error if not found)
+fruits.discard("grape")      # Remove (no error if not found)
+
+# Set mathematics
+set1 = {1, 2, 3, 4}
+set2 = {3, 4, 5, 6}
+
+print(set1 | set2)           # {1, 2, 3, 4, 5, 6} Union
+print(set1 & set2)           # {3, 4} Intersection
+print(set1 - set2)           # {1, 2} Difference
+print(set1 ^ set2)           # {1, 2, 5, 6} Symmetric difference
+
+# Check membership
+print(1 in set1)             # True</code></pre>
+                </div>
+            </section>
+
+            <section id="control" class="card">
+                <h2>9. Control Flow</h2>
+                
+                <h3>If-Elif-Else</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python">age = 18
+
+if age < 13:
+    print("Child")
+elif age < 20:
+    print("Teenager")
+else:
+    print("Adult")
+
+# Ternary operator
+status = "Adult" if age >= 18 else "Minor"</code></pre>
+                </div>
+
+                <h3>For Loops</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Loop through list
+fruits = ["apple", "banana", "cherry"]
+for fruit in fruits:
+    print(fruit)
+
+# Loop with index
+for i, fruit in enumerate(fruits):
+    print(f"{i}: {fruit}")
+
+# Loop through range
+for i in range(5):        # 0 to 4
+    print(i)
+
+for i in range(2, 10, 2): # 2 to 9, step 2
+    print(i)              # 2, 4, 6, 8
+
+# Loop through dictionary
+person = {"name": "Alice", "age": 25}
+for key, value in person.items():
+    print(f"{key}: {value}")</code></pre>
+                </div>
+
+                <h3>While Loops</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python">count = 0
+while count < 5:
+    print(count)
+    count += 1
+
+# Break and continue
+for i in range(10):
+    if i == 3:
+        continue  # Skip 3
+    if i == 7:
+        break     # Stop at 7
+    print(i)</code></pre>
+                </div>
+            </section>
+
+            <section id="functions" class="card">
+                <h2>10. Functions</h2>
+                <p>Functions are reusable blocks of code that perform specific tasks.</p>
+
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Basic function
+def greet(name):
+    return f"Hello, {name}!"
+
+print(greet("Alice"))  # Hello, Alice!
+
+# Default parameters
+def greet(name, greeting="Hello"):
+    return f"{greeting}, {name}!"
+
+print(greet("Bob"))              # Hello, Bob!
+print(greet("Bob", "Hi"))        # Hi, Bob!
+
+# Multiple return values
+def get_coordinates():
+    return 10, 20
+
+x, y = get_coordinates()
+
+# *args and **kwargs
+def sum_all(*args):
+    return sum(args)
+
+print(sum_all(1, 2, 3, 4))  # 10
+
+def print_info(**kwargs):
+    for key, value in kwargs.items():
+        print(f"{key}: {value}")
+
+print_info(name="Alice", age=25)
+
+# Docstrings
+def add(a, b):
+    """
+    Add two numbers and return the result.
+    
+    Args:
+        a: First number
+        b: Second number
+    
+    Returns:
+        Sum of a and b
+    """
+    return a + b</code></pre>
+                </div>
+            </section>
+
+            <section id="lambda" class="card">
+                <h2>11. Lambda Functions</h2>
+                <p>Lambda functions are small anonymous functions defined with the lambda keyword.</p>
+
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Basic lambda
+square = lambda x: x ** 2
+print(square(5))  # 25
+
+add = lambda x, y: x + y
+print(add(3, 4))  # 7
+
+# Lambda with map
+numbers = [1, 2, 3, 4, 5]
+squared = list(map(lambda x: x ** 2, numbers))
+print(squared)  # [1, 4, 9, 16, 25]
+
+# Lambda with filter
+even_numbers = list(filter(lambda x: x % 2 == 0, numbers))
+print(even_numbers)  # [2, 4]
+
+# Lambda with sorted
+students = [
+    {"name": "Alice", "grade": 85},
+    {"name": "Bob", "grade": 92},
+    {"name": "Charlie", "grade": 78}
+]
+sorted_students = sorted(students, key=lambda x: x["grade"], reverse=True)
+print(sorted_students)</code></pre>
+                </div>
+            </section>
+
+            <section id="comprehensions" class="card">
+                <h2>12. List, Dict & Set Comprehensions</h2>
+                <p>Comprehensions provide a concise way to create collections.</p>
+
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># List comprehension
+squares = [x ** 2 for x in range(10)]
+print(squares)  # [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+
+# With condition
+even_squares = [x ** 2 for x in range(10) if x % 2 == 0]
+print(even_squares)  # [0, 4, 16, 36, 64]
+
+# Nested comprehension
+matrix = [[i * j for j in range(3)] for i in range(3)]
+print(matrix)  # [[0, 0, 0], [0, 1, 2], [0, 2, 4]]
+
+# Dictionary comprehension
+squares_dict = {x: x ** 2 for x in range(5)}
+print(squares_dict)  # {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}
+
+# Set comprehension
+unique_lengths = {len(word) for word in ["hello", "world", "hi", "python"]}
+print(unique_lengths)  # {2, 5, 6}</code></pre>
+                </div>
+            </section>
+
+            <section id="oop" class="card">
+                <h2>13. Object-Oriented Programming (OOP)</h2>
+                <p>OOP allows you to structure code using classes and objects.</p>
+
+                <h3>Basic Class</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python">class Dog:
+    # Class attribute
+    species = "Canis familiaris"
+    
+    # Constructor
+    def __init__(self, name, age):
+        # Instance attributes
+        self.name = name
+        self.age = age
+    
+    # Instance method
+    def bark(self):
+        return f"{self.name} says Woof!"
+    
+    # String representation
+    def __str__(self):
+        return f"{self.name} is {self.age} years old"
+
+# Create objects
+dog1 = Dog("Buddy", 3)
+dog2 = Dog("Max", 5)
+
+print(dog1.bark())  # Buddy says Woof!
+print(dog1)         # Buddy is 3 years old</code></pre>
+                </div>
+
+                <h3>Inheritance</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python">class Animal:
+    def __init__(self, name):
+        self.name = name
+    
+    def speak(self):
+        pass
+
+class Dog(Animal):
+    def speak(self):
+        return f"{self.name} says Woof!"
+
+class Cat(Animal):
+    def speak(self):
+        return f"{self.name} says Meow!"
+
+# Polymorphism
+animals = [Dog("Buddy"), Cat("Whiskers")]
+for animal in animals:
+    print(animal.speak())</code></pre>
+                </div>
+
+                <h3>Encapsulation</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python">class BankAccount:
+    def __init__(self, balance):
+        self.__balance = balance  # Private attribute
+    
+    def deposit(self, amount):
+        if amount > 0:
+            self.__balance += amount
+    
+    def withdraw(self, amount):
+        if 0 < amount <= self.__balance:
+            self.__balance -= amount
+            return True
+        return False
+    
+    def get_balance(self):
+        return self.__balance
+
+account = BankAccount(1000)
+account.deposit(500)
+print(account.get_balance())  # 1500</code></pre>
+                </div>
+            </section>
+
+            <section id="modules" class="card">
+                <h2>14. Modules and Packages</h2>
+                <p>Modules are Python files containing functions, classes, and variables that you can import and use.</p>
+
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Import entire module
+import math
+print(math.sqrt(16))  # 4.0
+print(math.pi)        # 3.141592653589793
+
+# Import specific items
+from math import sqrt, pi
+print(sqrt(25))  # 5.0
+
+# Import with alias
+import numpy as np
+import pandas as pd
+
+# Import all (not recommended)
+from math import *
+
+# Standard library modules
+import datetime
+import random
+import os
+
+# Get current date
+today = datetime.date.today()
+print(today)
+
+# Random number
+print(random.randint(1, 10))
+
+# File path operations
+print(os.path.exists("file.txt"))</code></pre>
+                </div>
+
+                <div class="highlight-box">
+                    <p><strong>Popular Python Libraries:</strong> NumPy (numerical computing), Pandas (data analysis), Matplotlib (plotting), Scikit-learn (machine learning), TensorFlow/PyTorch (deep learning), Flask/Django (web frameworks)</p>
+                </div>
+            </section>
+
+            <section id="files" class="card">
+                <h2>15. File Handling</h2>
+                <p>Python provides built-in functions to read and write files.</p>
+
+                <h3>Reading Files</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Read entire file
+with open("file.txt", "r") as file:
+    content = file.read()
+    print(content)
+
+# Read line by line
+with open("file.txt", "r") as file:
+    for line in file:
+        print(line.strip())
+
+# Read all lines into list
+with open("file.txt", "r") as file:
+    lines = file.readlines()
+    print(lines)</code></pre>
+                </div>
+
+                <h3>Writing Files</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python"># Write to file (overwrites existing)
+with open("output.txt", "w") as file:
+    file.write("Hello, World!\n")
+    file.write("Python is awesome!")
+
+# Append to file
+with open("output.txt", "a") as file:
+    file.write("\nAppended line")
+
+# Write multiple lines
+lines = ["Line 1\n", "Line 2\n", "Line 3\n"]
+with open("output.txt", "w") as file:
+    file.writelines(lines)</code></pre>
+                </div>
+
+                <h3>Working with CSV</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python">import csv
+
+# Read CSV
+with open("data.csv", "r") as file:
+    reader = csv.reader(file)
+    for row in reader:
+        print(row)
+
+# Write CSV
+data = [
+    ["Name", "Age", "City"],
+    ["Alice", "25", "New York"],
+    ["Bob", "30", "London"]
+]
+
+with open("output.csv", "w", newline="") as file:
+    writer = csv.writer(file)
+    writer.writerows(data)
+
+# CSV with dictionaries
+with open("data.csv", "r") as file:
+    reader = csv.DictReader(file)
+    for row in reader:
+        print(row["Name"], row["Age"])</code></pre>
+                </div>
+
+                <h3>Working with JSON</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-python">import json
+
+# Python dict to JSON
+data = {
+    "name": "Alice",
+    "age": 25,
+    "skills": ["Python", "JavaScript"]
+}
+
+# Write JSON file
+with open("data.json", "w") as file:
+    json.dump(data, file, indent=4)
+
+# Read JSON file
+with open("data.json", "r") as file:
+    loaded_data = json.load(file)
+    print(loaded_data)
+
+# JSON string conversions
+json_string = json.dumps(data)
+python_dict = json.loads(json_string)</code></pre>
+                </div>
+            </section>
+
+            <div class="card" style="text-align: center; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));">
+                <h2>🎉 Congratulations!</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 30px;">You've completed the Python Basics guide. Ready for the next step?</p>
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                    <a href="numpy-notes.html" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 15px 30px; border-radius: 12px; font-weight: 600; transition: transform 0.3s; text-decoration: none;">Next: NumPy →</a>
+                    <a href="index.html" style="background: rgba(102, 126, 234, 0.2); color: #667eea; padding: 15px 30px; border-radius: 12px; font-weight: 600; transition: transform 0.3s; text-decoration: none;">🏠 Home</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>📚 Learning Hub</h3>
+                <p>A comprehensive platform for mastering data science fundamentals. Built with passion for learners everywhere.</p>
+                <div class="social-links">
+                    <a href="https://github.com/Developer-Sahil/" title="GitHub">💻</a>
+                    <a href="https://www.linkedin.com/in/sahil-sharma-921969239/" title="LinkedIn">💼</a>
+                    <!-- <a href="#" title="Twitter">🐦</a> -->
+                    <a href="sahilsharmamrp@gmail.com" title="Email">📧</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>🎓 Topics</h3>
+                <ul>
+                    <li><a href="python-notes.html">Python Basics</a></li>
+                    <li><a href="numpy-notes.html">NumPy</a></li>
+                    <li><a href="pandas-notes.html">Pandas</a></li>
+                    <li><a href="sql-notes.html">SQL</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>🔗 Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Me</a></li>
+                    <li><a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">Back to Top</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>💡 Resources</h3>
+                <ul>
+                    <li><a href="https://docs.python.org/" target="_blank">Python Docs</a></li>
+                    <li><a href="https://numpy.org/doc/" target="_blank">NumPy Docs</a></li>
+                    <li><a href="https://pandas.pydata.org/docs/" target="_blank">Pandas Docs</a></li>
+                    <li><a href="https://www.w3schools.com/sql/" target="_blank">SQL Tutorial</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Data Science Learning Hub. Built by Sahil Sharma for learners everywhere.</p>
+            <p>Open source educational project • <a href="about.html">Learn more about the creator</a></p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    
+    <script src="js/common.js"></script>
+    <script src="js/notes.js"></script>
+</body>
+</html>

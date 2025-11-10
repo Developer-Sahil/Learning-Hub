@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Guide - Learning Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/notes.css">
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">📚 Learning Hub</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="python-notes.html">Python</a>
+                <a href="numpy-notes.html">NumPy</a>
+                <a href="pandas-notes.html">Pandas</a>
+                <!-- <a href="sql-notes.html">SQL</a> -->
+                 <a href="about.html">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h3>📖 Contents</h3>
+            <ul>
+                <li><a href="#intro" class="active">Introduction</a></li>
+                <li><a href="#basics">SQL Basics</a></li>
+                <li><a href="#select">SELECT Queries</a></li>
+                <li><a href="#where">WHERE Clause</a></li>
+                <li><a href="#sorting">Sorting & Limiting</a></li>
+                <li><a href="#aggregates">Aggregate Functions</a></li>
+                <li><a href="#groupby">GROUP BY</a></li>
+                <li><a href="#joins">JOINS</a></li>
+                <li><a href="#subqueries">Subqueries</a></li>
+                <li><a href="#insert">INSERT Data</a></li>
+                <li><a href="#update">UPDATE Data</a></li>
+                <li><a href="#delete">DELETE Data</a></li>
+                <li><a href="#tables">Table Operations</a></li>
+                <li><a href="#indexes">Indexes</a></li>
+                <li><a href="#advanced">Advanced Concepts</a></li>
+            </ul>
+        </aside>
+
+        <main class="content">
+            <div class="hero">
+                <h1>🗄️ SQL Essentials</h1>
+                <p>Master database querying with SELECT, JOIN, aggregations, and database design</p>
+            </div>
+
+            <section id="intro" class="card">
+                <h2>1. Introduction to SQL</h2>
+                <p>SQL (Structured Query Language) is the standard language for managing and manipulating relational databases. It's used to query, insert, update, and delete data, as well as create and modify database structures.</p>
+                
+                <div class="highlight-box">
+                    <p><strong>Why SQL?</strong> Universal database language, essential for data analysis, works with all major databases (MySQL, PostgreSQL, SQL Server, SQLite, Oracle)</p>
+                </div>
+
+                <p>SQL is essential for:</p>
+                <ul>
+                    <li><strong>Data Retrieval</strong> - Query and extract specific data</li>
+                    <li><strong>Data Manipulation</strong> - Insert, update, delete records</li>
+                    <li><strong>Data Definition</strong> - Create and modify database structures</li>
+                    <li><strong>Data Analysis</strong> - Aggregate, filter, and join data</li>
+                </ul>
+            </section>
+
+            <section id="basics" class="card">
+                <h2>2. SQL Basics</h2>
+                
+                <h3>Database Structure</h3>
+                <p>A relational database consists of tables (relations) with rows (records) and columns (fields).</p>
+
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- Example table structure
+CREATE TABLE employees (
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    department VARCHAR(50),
+    salary DECIMAL(10, 2),
+    hire_date DATE
+);
+
+-- View all databases
+SHOW DATABASES;
+
+-- Use a database
+USE company_db;
+
+-- View all tables
+SHOW TABLES;
+
+-- Describe table structure
+DESCRIBE employees;</code></pre>
+                </div>
+
+                <h3>SQL Keywords</h3>
+                <p>SQL keywords are NOT case-sensitive, but it's conventional to write them in UPPERCASE for readability.</p>
+            </section>
+
+            <section id="select" class="card">
+                <h2>3. SELECT Queries</h2>
+                <p>The SELECT statement is used to retrieve data from a database.</p>
+
+                <h3>Basic SELECT</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- Select all columns
+SELECT * FROM employees;
+
+-- Select specific columns
+SELECT name, department, salary FROM employees;
+
+-- Select with alias
+SELECT name AS employee_name, salary AS annual_salary 
+FROM employees;
+
+-- Select distinct values
+SELECT DISTINCT department FROM employees;
+
+-- Count distinct
+SELECT COUNT(DISTINCT department) FROM employees;</code></pre>
+                </div>
+
+                <h3>Column Calculations</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- Calculated columns
+SELECT name, salary, salary * 12 AS annual_salary 
+FROM employees;
+
+-- String concatenation
+SELECT CONCAT(first_name, ' ', last_name) AS full_name 
+FROM employees;
+
+-- Conditional column (CASE)
+SELECT name, salary,
+    CASE 
+        WHEN salary > 100000 THEN 'High'
+        WHEN salary > 50000 THEN 'Medium'
+        ELSE 'Low'
+    END AS salary_category
+FROM employees;</code></pre>
+                </div>
+            </section>
+
+            <section id="where" class="card">
+                <h2>4. WHERE Clause - Filtering Data</h2>
+                <p>The WHERE clause filters records based on specified conditions.</p>
+
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- Basic conditions
+SELECT * FROM employees WHERE department = 'Sales';
+SELECT * FROM employees WHERE salary > 75000;
+SELECT * FROM employees WHERE hire_date >= '2020-01-01';
+
+-- Multiple conditions (AND, OR)
+SELECT * FROM employees 
+WHERE department = 'Sales' AND salary > 60000;
+
+SELECT * FROM employees 
+WHERE department = 'Sales' OR department = 'Marketing';
+
+-- BETWEEN
+SELECT * FROM employees 
+WHERE salary BETWEEN 50000 AND 100000;
+
+-- IN operator
+SELECT * FROM employees 
+WHERE department IN ('Sales', 'Marketing', 'IT');
+
+-- NOT IN
+SELECT * FROM employees 
+WHERE department NOT IN ('HR', 'Admin');
+
+-- LIKE pattern matching
+SELECT * FROM employees WHERE name LIKE 'John%';  -- Starts with John
+SELECT * FROM employees WHERE name LIKE '%son';   -- Ends with son
+SELECT * FROM employees WHERE name LIKE '%ann%';  -- Contains ann
+
+-- IS NULL / IS NOT NULL
+SELECT * FROM employees WHERE manager_id IS NULL;
+SELECT * FROM employees WHERE email IS NOT NULL;</code></pre>
+                </div>
+            </section>
+
+            <section id="sorting" class="card">
+                <h2>5. Sorting and Limiting Results</h2>
+                
+                <h3>ORDER BY</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- Sort ascending (default)
+SELECT * FROM employees ORDER BY salary;
+SELECT * FROM employees ORDER BY salary ASC;
+
+-- Sort descending
+SELECT * FROM employees ORDER BY salary DESC;
+
+-- Sort by multiple columns
+SELECT * FROM employees 
+ORDER BY department ASC, salary DESC;
+
+-- Sort by column position
+SELECT name, salary FROM employees 
+ORDER BY 2 DESC;  -- Sort by 2nd column (salary)</code></pre>
+                </div>
+
+                <h3>LIMIT / TOP</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- MySQL, PostgreSQL, SQLite
+SELECT * FROM employees LIMIT 10;
+
+-- Top 10 highest salaries
+SELECT * FROM employees 
+ORDER BY salary DESC 
+LIMIT 10;
+
+-- Skip first 10, get next 10 (pagination)
+SELECT * FROM employees 
+ORDER BY id 
+LIMIT 10 OFFSET 10;
+
+-- SQL Server / MS Access
+SELECT TOP 10 * FROM employees;</code></pre>
+                </div>
+            </section>
+
+            <section id="aggregates" class="card">
+                <h2>6. Aggregate Functions</h2>
+                <p>Aggregate functions perform calculations on multiple rows and return a single value.</p>
+
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- COUNT - count rows
+SELECT COUNT(*) FROM employees;
+SELECT COUNT(manager_id) FROM employees;  -- Excludes NULLs
+SELECT COUNT(DISTINCT department) FROM employees;
+
+-- SUM - total
+SELECT SUM(salary) FROM employees;
+
+-- AVG - average
+SELECT AVG(salary) FROM employees;
+SELECT ROUND(AVG(salary), 2) AS avg_salary FROM employees;
+
+-- MIN and MAX
+SELECT MIN(salary) AS lowest_salary FROM employees;
+SELECT MAX(salary) AS highest_salary FROM employees;
+
+-- Multiple aggregates
+SELECT 
+    COUNT(*) AS total_employees,
+    AVG(salary) AS avg_salary,
+    MIN(salary) AS min_salary,
+    MAX(salary) AS max_salary,
+    SUM(salary) AS total_payroll
+FROM employees;</code></pre>
+                </div>
+            </section>
+
+            <section id="groupby" class="card">
+                <h2>7. GROUP BY and HAVING</h2>
+                <p>GROUP BY groups rows that have the same values and is often used with aggregate functions.</p>
+
+                <h3>GROUP BY</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- Group by single column
+SELECT department, COUNT(*) AS employee_count
+FROM employees
+GROUP BY department;
+
+-- Group with multiple aggregates
+SELECT department,
+    COUNT(*) AS num_employees,
+    AVG(salary) AS avg_salary,
+    MAX(salary) AS max_salary
+FROM employees
+GROUP BY department;
+
+-- Group by multiple columns
+SELECT department, YEAR(hire_date) AS hire_year, COUNT(*) 
+FROM employees
+GROUP BY department, YEAR(hire_date);
+
+-- Order grouped results
+SELECT department, AVG(salary) AS avg_salary
+FROM employees
+GROUP BY department
+ORDER BY avg_salary DESC;</code></pre>
+                </div>
+
+                <h3>HAVING</h3>
+                <p>HAVING filters groups (use it instead of WHERE with aggregate functions).</p>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- Filter groups
+SELECT department, COUNT(*) AS num_employees
+FROM employees
+GROUP BY department
+HAVING COUNT(*) > 10;
+
+-- Having with multiple conditions
+SELECT department, AVG(salary) AS avg_salary
+FROM employees
+GROUP BY department
+HAVING AVG(salary) > 70000 AND COUNT(*) > 5;
+
+-- WHERE vs HAVING
+-- WHERE filters rows before grouping
+-- HAVING filters groups after grouping
+SELECT department, AVG(salary) AS avg_salary
+FROM employees
+WHERE salary > 50000  -- Filter individual rows first
+GROUP BY department
+HAVING AVG(salary) > 75000  -- Then filter groups
+ORDER BY avg_salary DESC;</code></pre>
+                </div>
+            </section>
+
+            <section id="joins" class="card">
+                <h2>8. JOINS - Combining Tables</h2>
+                <p>JOINS are used to combine rows from two or more tables based on a related column.</p>
+
+                <h3>Sample Tables</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- Employees table
+-- id | name      | dept_id
+-- 1  | Alice     | 1
+-- 2  | Bob       | 2
+-- 3  | Charlie   | NULL
+
+-- Departments table
+-- id | dept_name
+-- 1  | Sales
+-- 2  | IT
+-- 3  | HR</code></pre>
+                </div>
+
+                <h3>INNER JOIN</h3>
+                <p>Returns only matching rows from both tables.</p>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">SELECT employees.name, departments.dept_name
+FROM employees
+INNER JOIN departments ON employees.dept_id = departments.id;
+
+-- Result: Alice-Sales, Bob-IT (Charlie excluded, no dept match)
+
+-- Using table aliases
+SELECT e.name, d.dept_name, e.salary
+FROM employees e
+INNER JOIN departments d ON e.dept_id = d.id;</code></pre>
+                </div>
+
+                <h3>LEFT JOIN</h3>
+                <p>Returns all rows from left table, matching rows from right table.</p>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">SELECT e.name, d.dept_name
+FROM employees e
+LEFT JOIN departments d ON e.dept_id = d.id;
+
+-- Result: Alice-Sales, Bob-IT, Charlie-NULL (all employees included)</code></pre>
+                </div>
+
+                <h3>RIGHT JOIN</h3>
+                <p>Returns all rows from right table, matching rows from left table.</p>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">SELECT e.name, d.dept_name
+FROM employees e
+RIGHT JOIN departments d ON e.dept_id = d.id;
+
+-- Result: Alice-Sales, Bob-IT, NULL-HR (all departments included)</code></pre>
+                </div>
+
+                <h3>FULL OUTER JOIN</h3>
+                <p>Returns all rows from both tables.</p>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">SELECT e.name, d.dept_name
+FROM employees e
+FULL OUTER JOIN departments d ON e.dept_id = d.id;
+
+-- Result: All employees and all departments (with NULLs where no match)</code></pre>
+                </div>
+
+                <h3>Multiple JOINS</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">SELECT e.name, d.dept_name, p.project_name
+FROM employees e
+INNER JOIN departments d ON e.dept_id = d.id
+INNER JOIN projects p ON e.id = p.employee_id;</code></pre>
+                </div>
+
+                <h3>SELF JOIN</h3>
+                <p>Join a table to itself.</p>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- Find employees and their managers
+SELECT e.name AS employee, m.name AS manager
+FROM employees e
+LEFT JOIN employees m ON e.manager_id = m.id;</code></pre>
+                </div>
+            </section>
+
+            <section id="subqueries" class="card">
+                <h2>9. Subqueries</h2>
+                <p>A subquery is a query nested inside another query.</p>
+
+                <h3>Subquery in WHERE</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- Employees with above-average salary
+SELECT name, salary
+FROM employees
+WHERE salary > (SELECT AVG(salary) FROM employees);
+
+-- Employees in Sales department
+SELECT name
+FROM employees
+WHERE dept_id = (SELECT id FROM departments WHERE dept_name = 'Sales');
+
+-- Using IN with subquery
+SELECT name
+FROM employees
+WHERE dept_id IN (SELECT id FROM departments WHERE dept_name IN ('Sales', 'IT'));</code></pre>
+                </div>
+
+                <h3>Subquery in SELECT</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">SELECT name, salary,
+    (SELECT AVG(salary) FROM employees) AS avg_salary,
+    salary - (SELECT AVG(salary) FROM employees) AS diff_from_avg
+FROM employees;</code></pre>
+                </div>
+
+                <h3>Subquery in FROM</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- Derived table
+SELECT dept_name, avg_salary
+FROM (
+    SELECT dept_id, AVG(salary) AS avg_salary
+    FROM employees
+    GROUP BY dept_id
+) AS dept_averages
+JOIN departments ON dept_averages.dept_id = departments.id
+WHERE avg_salary > 70000;</code></pre>
+                </div>
+
+                <h3>EXISTS</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- Departments that have employees
+SELECT dept_name
+FROM departments d
+WHERE EXISTS (
+    SELECT 1 FROM employees e WHERE e.dept_id = d.id
+);
+
+-- Departments with NO employees
+SELECT dept_name
+FROM departments d
+WHERE NOT EXISTS (
+    SELECT 1 FROM employees e WHERE e.dept_id = d.id
+);</code></pre>
+                </div>
+            </section>
+
+            <section id="insert" class="card">
+                <h2>10. INSERT Data</h2>
+                <p>Add new rows to a table.</p>
+
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- Insert single row
+INSERT INTO employees (name, department, salary, hire_date)
+VALUES ('John Doe', 'Sales', 65000, '2023-01-15');
+
+-- Insert multiple rows
+INSERT INTO employees (name, department, salary)
+VALUES 
+    ('Alice Smith', 'IT', 75000),
+    ('Bob Jones', 'Marketing', 60000),
+    ('Charlie Brown', 'HR', 55000);
+
+-- Insert without specifying columns (must match ALL columns in order)
+INSERT INTO employees 
+VALUES (101, 'Jane Wilson', 'Finance', 70000, '2023-02-01');
+
+-- Insert from another table
+INSERT INTO employees_backup
+SELECT * FROM employees WHERE department = 'Sales';
+
+-- Insert with default values
+INSERT INTO employees (name, department) 
+VALUES ('Test User', 'IT');  -- Other columns will use default values or NULL</code></pre>
+                </div>
+            </section>
+
+            <section id="update" class="card">
+                <h2>11. UPDATE Data</h2>
+                <p>Modify existing rows in a table.</p>
+
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- Update single column
+UPDATE employees 
+SET salary = 70000 
+WHERE id = 5;
+
+-- Update multiple columns
+UPDATE employees 
+SET salary = 80000, department = 'IT' 
+WHERE name = 'John Doe';
+
+-- Update with calculation
+UPDATE employees 
+SET salary = salary * 1.10 
+WHERE department = 'Sales';
+
+-- Update based on condition
+UPDATE employees 
+SET status = 'Senior'
+WHERE YEAR(hire_date) < 2015;
+
+-- Update with JOIN (MySQL)
+UPDATE employees e
+JOIN departments d ON e.dept_id = d.id
+SET e.salary = e.salary * 1.05
+WHERE d.dept_name = 'IT';
+
+-- ⚠️ WARNING: Update without WHERE updates ALL rows!
+-- UPDATE employees SET salary = 50000;  -- Don't do this!</code></pre>
+                </div>
+            </section>
+
+            <section id="delete" class="card">
+                <h2>12. DELETE Data</h2>
+                <p>Remove rows from a table.</p>
+
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- Delete specific rows
+DELETE FROM employees WHERE id = 10;
+
+-- Delete with condition
+DELETE FROM employees WHERE hire_date < '2010-01-01';
+
+-- Delete with subquery
+DELETE FROM employees 
+WHERE dept_id IN (SELECT id FROM departments WHERE dept_name = 'Temp');
+
+-- ⚠️ WARNING: Delete without WHERE deletes ALL rows!
+-- DELETE FROM employees;  -- Don't do this!
+
+-- TRUNCATE - faster way to delete all rows (can't be rolled back)
+TRUNCATE TABLE employees;</code></pre>
+                </div>
+            </section>
+
+            <section id="tables" class="card">
+                <h2>13. Table Operations</h2>
+                
+                <h3>CREATE TABLE</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- Basic table creation
+CREATE TABLE employees (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE,
+    department VARCHAR(50),
+    salary DECIMAL(10, 2) DEFAULT 50000,
+    hire_date DATE,
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- With foreign key
+CREATE TABLE projects (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    employee_id INT,
+    start_date DATE,
+    FOREIGN KEY (employee_id) REFERENCES employees(id)
+);
+
+-- Create table from another table
+CREATE TABLE employees_backup AS 
+SELECT * FROM employees;</code></pre>
+                </div>
+
+                <h3>ALTER TABLE</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- Add column
+ALTER TABLE employees ADD COLUMN phone VARCHAR(20);
+
+-- Drop column
+ALTER TABLE employees DROP COLUMN phone;
+
+-- Modify column
+ALTER TABLE employees MODIFY COLUMN name VARCHAR(150);
+
+-- Rename column
+ALTER TABLE employees RENAME COLUMN name TO full_name;
+
+-- Add constraint
+ALTER TABLE employees ADD CONSTRAINT unique_email UNIQUE (email);
+
+-- Add foreign key
+ALTER TABLE projects 
+ADD CONSTRAINT fk_employee 
+FOREIGN KEY (employee_id) REFERENCES employees(id);</code></pre>
+                </div>
+
+                <h3>DROP TABLE</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- Drop table (permanent!)
+DROP TABLE employees;
+
+-- Drop if exists (no error if doesn't exist)
+DROP TABLE IF EXISTS employees;</code></pre>
+                </div>
+
+                <h3>Data Types</h3>
+                <div class="highlight-box">
+                    <p><strong>Common Data Types:</strong> INT, BIGINT, DECIMAL(p,s), FLOAT, DOUBLE, VARCHAR(n), TEXT, DATE, TIME, DATETIME, TIMESTAMP, BOOLEAN, BLOB</p>
+                </div>
+            </section>
+
+            <section id="indexes" class="card">
+                <h2>14. Indexes</h2>
+                <p>Indexes speed up data retrieval but slow down inserts/updates.</p>
+
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- Create index
+CREATE INDEX idx_department ON employees(department);
+
+-- Create unique index
+CREATE UNIQUE INDEX idx_email ON employees(email);
+
+-- Composite index (multiple columns)
+CREATE INDEX idx_dept_salary ON employees(department, salary);
+
+-- View indexes
+SHOW INDEX FROM employees;
+
+-- Drop index
+DROP INDEX idx_department ON employees;</code></pre>
+                </div>
+
+                <div class="highlight-box">
+                    <p><strong>When to use indexes:</strong> Columns used in WHERE, JOIN, ORDER BY. Don't over-index – it slows down writes!</p>
+                </div>
+            </section>
+
+            <section id="advanced" class="card">
+                <h2>15. Advanced Concepts</h2>
+                
+                <h3>UNION</h3>
+                <p>Combine results from multiple SELECT statements.</p>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- UNION (removes duplicates)
+SELECT name FROM employees WHERE department = 'Sales'
+UNION
+SELECT name FROM employees WHERE department = 'IT';
+
+-- UNION ALL (keeps duplicates, faster)
+SELECT name FROM employees WHERE salary > 70000
+UNION ALL
+SELECT name FROM managers WHERE salary > 70000;</code></pre>
+                </div>
+
+                <h3>Window Functions</h3>
+                <p>Perform calculations across rows related to the current row.</p>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- ROW_NUMBER - assign unique row number
+SELECT name, salary,
+    ROW_NUMBER() OVER (ORDER BY salary DESC) AS salary_rank
+FROM employees;
+
+-- RANK - rank with gaps for ties
+SELECT name, department, salary,
+    RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS dept_rank
+FROM employees;
+
+-- DENSE_RANK - rank without gaps
+SELECT name, salary,
+    DENSE_RANK() OVER (ORDER BY salary DESC) AS dense_rank
+FROM employees;
+
+-- Running total
+SELECT name, salary,
+    SUM(salary) OVER (ORDER BY hire_date) AS running_total
+FROM employees;
+
+-- Moving average
+SELECT name, salary,
+    AVG(salary) OVER (ORDER BY hire_date ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) AS moving_avg
+FROM employees;</code></pre>
+                </div>
+
+                <h3>Common Table Expressions (CTE)</h3>
+                <p>Temporary named result set, more readable than subqueries.</p>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- Basic CTE
+WITH high_earners AS (
+    SELECT name, department, salary
+    FROM employees
+    WHERE salary > 80000
+)
+SELECT department, COUNT(*) AS num_high_earners
+FROM high_earners
+GROUP BY department;
+
+-- Multiple CTEs
+WITH 
+sales_dept AS (
+    SELECT * FROM employees WHERE department = 'Sales'
+),
+high_performers AS (
+    SELECT * FROM sales_dept WHERE salary > 70000
+)
+SELECT * FROM high_performers;
+
+-- Recursive CTE (for hierarchical data)
+WITH RECURSIVE employee_hierarchy AS (
+    -- Anchor: start with top-level employees
+    SELECT id, name, manager_id, 1 AS level
+    FROM employees
+    WHERE manager_id IS NULL
+    
+    UNION ALL
+    
+    -- Recursive: get subordinates
+    SELECT e.id, e.name, e.manager_id, eh.level + 1
+    FROM employees e
+    JOIN employee_hierarchy eh ON e.manager_id = eh.id
+)
+SELECT * FROM employee_hierarchy;</code></pre>
+                </div>
+
+                <h3>Views</h3>
+                <p>Virtual tables based on queries.</p>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- Create view
+CREATE VIEW high_earners AS
+SELECT name, department, salary
+FROM employees
+WHERE salary > 80000;
+
+-- Use view like a table
+SELECT * FROM high_earners;
+SELECT department, AVG(salary) FROM high_earners GROUP BY department;
+
+-- Drop view
+DROP VIEW high_earners;</code></pre>
+                </div>
+
+                <h3>Transactions</h3>
+                <p>Group of SQL statements executed as a single unit.</p>
+                
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- Begin transaction
+START TRANSACTION;  -- or BEGIN;
+
+-- Execute statements
+UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+
+-- Commit if successful
+COMMIT;
+
+-- Or rollback if error
+ROLLBACK;
+
+-- ACID properties: Atomicity, Consistency, Isolation, Durability</code></pre>
+                </div>
+
+                <h3>String Functions</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- Common string functions
+SELECT UPPER(name) FROM employees;           -- Uppercase
+SELECT LOWER(name) FROM employees;           -- Lowercase
+SELECT LENGTH(name) FROM employees;          -- String length
+SELECT CONCAT(first_name, ' ', last_name) FROM employees;  -- Concatenate
+SELECT SUBSTRING(name, 1, 3) FROM employees; -- Extract substring
+SELECT TRIM(name) FROM employees;            -- Remove whitespace
+SELECT REPLACE(name, 'John', 'Jane') FROM employees;  -- Replace text</code></pre>
+                </div>
+
+                <h3>Date Functions</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- Current date/time
+SELECT NOW();                    -- Current datetime
+SELECT CURDATE();                -- Current date
+SELECT CURTIME();                -- Current time
+
+-- Extract date parts
+SELECT YEAR(hire_date) FROM employees;
+SELECT MONTH(hire_date) FROM employees;
+SELECT DAY(hire_date) FROM employees;
+SELECT DAYNAME(hire_date) FROM employees;
+
+-- Date arithmetic
+SELECT DATE_ADD(hire_date, INTERVAL 1 YEAR) FROM employees;
+SELECT DATE_SUB(hire_date, INTERVAL 6 MONTH) FROM employees;
+SELECT DATEDIFF(NOW(), hire_date) AS days_employed FROM employees;
+
+-- Format date
+SELECT DATE_FORMAT(hire_date, '%Y-%m-%d') FROM employees;
+SELECT DATE_FORMAT(hire_date, '%M %d, %Y') FROM employees;</code></pre>
+                </div>
+
+                <h3>NULL Handling</h3>
+                <div class="code-container">
+                    <div class="code-header">
+                        <span>SQL</span>
+                        <button class="copy-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-sql">-- COALESCE - return first non-NULL value
+SELECT name, COALESCE(phone, email, 'No contact') AS contact
+FROM employees;
+
+-- IFNULL / ISNULL (MySQL)
+SELECT name, IFNULL(manager_id, 0) AS manager
+FROM employees;
+
+-- NULLIF - return NULL if values are equal
+SELECT name, NULLIF(department, 'Unknown') AS dept
+FROM employees;</code></pre>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2>SQL Best Practices</h2>
+                <ul>
+                    <li><strong>Use meaningful names</strong> - Clear table and column names</li>
+                    <li><strong>Always use WHERE with UPDATE/DELETE</strong> - Avoid accidental data loss</li>
+                    <li><strong>Use indexes wisely</strong> - Speed up reads, but not too many</li>
+                    <li><strong>Use transactions</strong> - For related operations that must succeed/fail together</li>
+                    <li><strong>Avoid SELECT *</strong> - Specify needed columns for better performance</li>
+                    <li><strong>Use JOINs over subqueries</strong> - Usually faster and more readable</li>
+                    <li><strong>Normalize data</strong> - Reduce redundancy with proper table design</li>
+                    <li><strong>Use prepared statements</strong> - Prevent SQL injection in applications</li>
+                    <li><strong>Comment complex queries</strong> - Help future you understand the logic</li>
+                    <li><strong>Test on small datasets first</strong> - Before running on production data</li>
+                </ul>
+            </section>
+
+            <div class="card" style="text-align: center; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));">
+                <h2>🎉 Congratulations!</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 30px;">You've completed all the core data science learning modules! You now have the foundation to tackle real-world data projects.</p>
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                    <a href="pandas-notes.html" style="background: rgba(102, 126, 234, 0.2); color: #667eea; padding: 15px 30px; border-radius: 12px; font-weight: 600; transition: transform 0.3s; text-decoration: none;">← Back to Pandas</a>
+                    <a href="index.html" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 15px 30px; border-radius: 12px; font-weight: 600; transition: transform 0.3s; text-decoration: none;">🏠 Back to Hub</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>📚 Learning Hub</h3>
+                <p>A comprehensive platform for mastering data science fundamentals. Built with passion for learners everywhere.</p>
+                <div class="social-links">
+                    <a href="https://github.com/Developer-Sahil/" title="GitHub">💻</a>
+                    <a href="https://www.linkedin.com/in/sahil-sharma-921969239/" title="LinkedIn">💼</a>
+                    <!-- <a href="#" title="Twitter">🐦</a> -->
+                    <a href="sahilsharmamrp@gmail.com" title="Email">📧</a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>🎓 Topics</h3>
+                <ul>
+                    <li><a href="python-notes.html">Python Basics</a></li>
+                    <li><a href="numpy-notes.html">NumPy</a></li>
+                    <li><a href="pandas-notes.html">Pandas</a></li>
+                    <li><a href="sql-notes.html">SQL</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>🔗 Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Me</a></li>
+                    <li><a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">Back to Top</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>💡 Resources</h3>
+                <ul>
+                    <li><a href="https://docs.python.org/" target="_blank">Python Docs</a></li>
+                    <li><a href="https://numpy.org/doc/" target="_blank">NumPy Docs</a></li>
+                    <li><a href="https://pandas.pydata.org/docs/" target="_blank">Pandas Docs</a></li>
+                    <li><a href="https://www.w3schools.com/sql/" target="_blank">SQL Tutorial</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 Data Science Learning Hub. Built by Sahil Sharma for learners everywhere.</p>
+            <p>Open source educational project • <a href="about.html">Learn more about the creator</a></p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    
+    <script src="js/common.js"></script>
+    <script src="js/notes.js"></script>
+</body>
+</html>
